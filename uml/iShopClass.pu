@@ -1,9 +1,5 @@
-' 1 магазин-склад далее магазин
-' Магазину нужно вести подсчёт
-' Информационная система «Интернет-магазин», торгующий:
-' ­Продуктами с доставкой заказчику
 
-@startuml
+@startuml ИС доставки товаров из магазина
 
 class User {
     + Long id
@@ -13,57 +9,77 @@ class User {
     + String email
     + String phone
 }
+
 class Category {
     + Long id
     String name
 }
+
 class Customer {
-    + String address
-    + 
+    + Address defaultAddress
+    + PurshaseMethod preferredMethod
 }
+
 class Basket {
     + Long id
     + Long user_id
     + Long[] basket_items
 }
+
 class BasketItem {
     + Long id
     + User user_id
     + Long product_id
     + int number
 }
+
+enum Status {
+    В пути
+    Готовится к отправке
+    Отклонено
+    Доставлено
+    Отказ
+}
+
 class Order {
     + Long id
-    + String amount
     + PurshaseMethod purchase_method
+    + BasketItem products
+    + Status status
     + OrderMethod order_method
     + DeliveryCompany company
+    + Address address
 }
+
 class BaseProduct {
     + Long id
     + String name
     + Category category
 }
-class DeliveryCompany {
+
+class Deliveryman {
     + Long id
-    + enum organization_form
-    + String name
-    + String inn
+    + String first_name
+    + String second_name
+    + String patronymic
+    + String phone
+    + String  email 
+    + String  password
 }
 
 enum PurshaseMethod {
-    CASH
-    CARD
-}
-enum OrderMethod {
-    SELF_PICKUP
-    DELIVERY_TO_OFFICE
-    COURIER
+    Наличкой
+    Карточкой
 }
 
 ' tight binding
 Basket *-- BasketItem
-Order o-- DeliveryCompany
+Order o-- Deliveryman
 BaseProduct o-- Category
+
+
+User <|-- Customer
+BasketItem *-- Order
+
 
 @enduml

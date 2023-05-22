@@ -1,0 +1,9 @@
+@startuml
+
+node "Веб Сервер" {
+component "Клиент"
+component "Сервер"
+database "Database"
+}
+
+@enduml

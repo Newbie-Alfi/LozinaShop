@@ -47,13 +47,13 @@ BasketItem --> ( Пометить активным или неактивным )
 BasketItem --> ( Выбор количества товара в корзине )
 MakingOrder --> ( Выбор способа доставки или самовывоз )
 MakingOrder --> ( Выбор адреса доставки )
-MakingOrder --> ( Оформить заказ )
+MakingOrder  --> ( Оформить заказ )
 MakingOrder --> ( Получить чек )
 ReceivingOrder --> ( Оповещение, что товар доставлен )
 ReceivingOrder --> ( Отказаться от товара )
 
 Customer -> BasketItem
-Customer --> MakingOrder
+Customer  -right-> MakingOrder
 Customer --> ReceivingOrder
 
 '-----------------------

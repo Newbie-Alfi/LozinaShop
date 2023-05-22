@@ -1,0 +1,122 @@
+
+@startuml
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+!define PK(x) <b><u>x</u></b>
+hide methods
+hide stereotypes
+
+Table(Order, "Заказ") {
+  PK(id) 
+  --
+  user_id
+  created_at 
+  updated_at 
+  from_address
+  delivery_address 
+  delivery_date
+}
+
+Table(BasketItem, "Товар в корзине") {
+  PK(id) 
+  --
+  user_id
+  product_id
+  quantity 
+  price
+}
+
+Table(OrderItem, "Товар в заказе") {
+  PK(id) 
+  --
+  order_id
+  basket_item_id
+}
+
+Table(Product, "Товар") {
+  PK(id) 
+  --
+  name 
+  description 
+  price 
+  image_url 
+  sale
+}
+
+Table(Basket, "Корзина") {
+  PK(id) 
+  --
+  user_id
+  basket_item_id
+}
+
+Table(User, "Пользователь") {
+  PK(id) 
+  --
+  name
+  phone
+  email 
+  password
+  address_id 
+}
+
+Table(Deleveryman, "Доставщик") {
+  PK(id) 
+  --
+  first_name
+  second_name
+  patronymic
+  phone
+  email 
+  password
+}
+
+Table(Worker, "Работник") {
+  PK(id) 
+  --
+  first_name
+  second_name
+  patronymic
+  phone
+  email 
+  password
+}
+
+Table(Address, "Адрес") {
+  PK(id) 
+  --
+  user_id 
+  address 
+  city 
+  state 
+  zip_code 
+}
+
+Table(Сheque, "Чек") {
+  PK(id) 
+  --
+  user_id
+  file
+  date
+}
+
+Table(Delivery, "Доставка") {
+  PK(id) 
+  --
+  deliveryman_id
+  order_id
+  status
+}
+
+Delivery "1" *-- "1" Deleveryman
+Delivery "1" *-- "1" Order
+User "*" *-- "*" Сheque
+Order "1" *-- "*" OrderItem : contains
+BasketItem "1" *-- "1" OrderItem
+Order "1" -- "1" User : has
+User "1" -- "*" Address : has
+Address *--  Order
+User "1" *-- "1" Basket
+BasketItem *-- Basket
+Product *-- BasketItem
+
+@enduml
