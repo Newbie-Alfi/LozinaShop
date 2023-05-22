@@ -1,0 +1,63 @@
+@startuml
+
+object User {
+    name = "John Doe"
+    email = "john@example.com"
+    address = "123 Main Street"
+    phone = "+1234567890"
+}
+
+object Product1 {
+    name = "Product 1"
+    price = 10.0
+    description = "Description of Product 1"
+    quantity = 5
+}
+
+object Product2 {
+    name = "Product 2"
+    price = 20.0
+    description = "Description of Product 2"
+    quantity = 3
+}
+
+object Product3 {
+    name = "Product 3"
+    price = 15.0
+    description = "Description of Product 3"
+    quantity = 8
+}
+
+object Order {
+    orderNumber = "ORD123"
+    customer = User
+    items = [Product1, Product2]
+    status = "Pending"
+    totalAmount = 30.0
+}
+
+object PaymentSystem {
+
+}
+
+object DeliveryService {
+}
+
+object Basket {
+    id = 1
+    user = 1
+    products = [Product1, Product2, Product3]
+}
+
+Basket --> Product1
+Basket --> Product2
+Basket --> Product3
+
+Order --> Product1
+Order --> PaymentSystem
+Order --> Product2
+Order --> User
+Order --> DeliveryService
+
+@enduml
+@enduml
